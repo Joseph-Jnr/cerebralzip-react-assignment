@@ -19,6 +19,7 @@ import * as yup from 'yup'
 import { yupResolver } from 'mantine-form-yup-resolver'
 import { notifications } from '@mantine/notifications'
 import { IconX } from '@tabler/icons-react'
+import { useNavigate } from 'react-router-dom'
 
 const loginSchema = yup.object().shape({
   username: yup.string().required('Enter username'),
@@ -27,6 +28,7 @@ const loginSchema = yup.object().shape({
 
 const Login = () => {
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const navigate = useNavigate()
 
   const form = useForm({
     initialValues: {
@@ -41,7 +43,6 @@ const Login = () => {
   })
 
   const handleSubmit = async (values: any) => {
-    console.log('shiii', values)
     setIsSubmitting(true)
     try {
       const res = await Auth(values)
@@ -70,8 +71,12 @@ const Login = () => {
         <Title ta="center">Welcome back!</Title>
         <Text c="dimmed" size="sm" ta="center" mt={5}>
           Do not have an account yet?{' '}
-          <Anchor size="sm" component="button">
-            Create account
+          <Anchor
+            size="sm"
+            component="button"
+            onClick={() => navigate('/dashboard')}
+          >
+            See dashboard 👀
           </Anchor>
         </Text>
 
